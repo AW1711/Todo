@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1",
     "react-spring": "^9.7.3",
     "web-vitals": "^2.1.4",
-    "homepage":"https://github.com/AW1711"
+    "homepage":"https://AW1711.github.io/todoApp"
   },
   "scripts": {
     "start": "react-scripts start",
