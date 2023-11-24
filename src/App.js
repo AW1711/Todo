@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import TodoList from './TodoList';
+import "./App.css"
 
-function App() {
+const App = () => {
+  const [todos, setTodos] = useState([]);
+  const [newTodo, setNewTodo] = useState('');
+
+  const addTodo = () => {
+    if (newTodo.trim() !== '') {
+      setTodos(prevTodos => [
+        ...prevTodos,
+        { id: Date.now(), text: newTodo, completed: false },
+      ]);
+      setNewTodo('');
+    }
+  };
+
+  const deleteTodo = id => {
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
+  };
+
+  const toggleComplete = id => {
+    setTodos(prevTodos =>
+      prevTodos.map(todo =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='Bar'>
+      <h1>React Todo App</h1>
+      <input
+        type="text"
+        value={newTodo}
+        onChange={e => setNewTodo(e.target.value)}
+      />
+      <button onClick={addTodo}>Add</button>
+      <TodoList
+        todos={todos}
+        onDelete={deleteTodo}
+        onToggleComplete={toggleComplete}
+      />
     </div>
   );
-}
+};
 
 export default App;
